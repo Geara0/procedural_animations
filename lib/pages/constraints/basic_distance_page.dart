@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:procedural_animations/routes.dart';
+import 'package:procedural_animations/utils/constraints/constraints_utils.dart';
+import 'package:procedural_animations/widgets/stack_canvas_widget.dart';
 import 'package:vector_math/vector_math.dart';
 
 class BasicDistancePage extends StatefulWidget {
   static const path = 'basic_distance';
+
   const BasicDistancePage({super.key});
 
   @override
@@ -24,58 +26,50 @@ class _BasicDistancePageState extends State<BasicDistancePage> {
     final x = _mousePosition.x - _radius;
     final y = _mousePosition.y - _radius;
 
-    return Scaffold(
-      appBar: AppBar(title: Text(routeNames[BasicDistancePage.path]!)),
-      body: MouseRegion(
-        onHover: (event) {
-          setState(() {
-            _mousePosition = Vector2(
-              event.localPosition.dx,
-              event.localPosition.dy,
-            );
-            final x = _mousePosition.x;
-            final y = _mousePosition.y;
-            _pointPosition = _constrainDistance(
-              _pointPosition,
-              Vector2(x, y),
-              _radius,
-            );
-            debugPrint(_pointPosition.toString());
-          });
-        },
-        child: Stack(
-          children: [
-            Positioned(
-              left: x,
-              top: y,
-              child: Container(
-                width: _radius * 2,
-                height: _radius * 2,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: colorScheme.tertiary),
-                ),
-              ),
+    return StackCanvas(
+      path: BasicDistancePage.path,
+      onHover: (event) {
+        setState(() {
+          _mousePosition = Vector2(
+            event.localPosition.dx,
+            event.localPosition.dy,
+          );
+          final x = _mousePosition.x;
+          final y = _mousePosition.y;
+          _pointPosition = constrainDistance(
+            point: _pointPosition,
+            anchor: Vector2(x, y),
+            distance: _radius,
+          );
+          debugPrint(_pointPosition.toString());
+        });
+      },
+      children: [
+        Positioned(
+          left: x,
+          top: y,
+          child: Container(
+            width: _radius * 2,
+            height: _radius * 2,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: colorScheme.tertiary),
             ),
-            Positioned(
-              left: _pointPosition.x - _pointRadius / 2,
-              top: _pointPosition.y - _pointRadius / 2,
-              child: Container(
-                width: _pointRadius,
-                height: _pointRadius,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: colorScheme.tertiary,
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+        Positioned(
+          left: _pointPosition.x - _pointRadius / 2,
+          top: _pointPosition.y - _pointRadius / 2,
+          child: Container(
+            width: _pointRadius,
+            height: _pointRadius,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: colorScheme.tertiary,
+            ),
+          ),
+        ),
+      ],
     );
-  }
-
-  Vector2 _constrainDistance(Vector2 point, Vector2 anchor, double distance) {
-    return ((point - anchor).normalized() * distance) + anchor;
   }
 }

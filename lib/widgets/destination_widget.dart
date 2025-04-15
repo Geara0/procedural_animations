@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:procedural_animations/global/global_variables.dart';
 
 class Destination extends StatelessWidget {
   const Destination({super.key, required this.title, required this.path});
@@ -9,11 +10,18 @@ class Destination extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).pushNamed(path);
-        },
-        child: Center(child: Text(title)),
+      child: Padding(
+        padding: const EdgeInsets.all(GlobalUi.smallPadding),
+        child: InkWell(
+          onTap: () => Navigator.of(context).pushNamed(path),
+          child: Center(
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextTheme.of(context).labelMedium,
+            ),
+          ),
+        ),
       ),
     );
   }

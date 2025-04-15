@@ -22,17 +22,22 @@ class DistanceConstraintChain extends StatefulWidget {
 
 class _DistanceConstraintChainState extends State<DistanceConstraintChain> {
   static const _distance = 15.0;
-  static const _segmentCount = 10;
 
-  late final _segments = List.generate(
-    _segmentCount,
-    (i) => SegmentDto(
-      position: Vector2.zero(),
-      radius: _getRadius(i),
-      angle: 0,
-      nextDistance: _distance,
-    ),
-  );
+  late List<SegmentDto> _segments;
+
+  void _updateSegments() {
+    setState(() {
+      _segments = List.generate(
+        _segmentCount,
+        (i) => SegmentDto(
+          position: Vector2.zero(),
+          radius: _getRadius(i),
+          angle: 0,
+          nextDistance: _distance,
+        ),
+      );
+    });
+  }
 
   double _getRadius(num i) {
     if (i == 0) return 15;
@@ -40,7 +45,14 @@ class _DistanceConstraintChainState extends State<DistanceConstraintChain> {
     return 1 + 2 / 15 * i + 400 / 15 * i / 2 * exp(1 - i / 2);
   }
 
-  var showFish = true;
+  var _showFish = true;
+  var _segmentCount = 10;
+
+  @override
+  void initState() {
+    super.initState();
+    _updateSegments();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +62,25 @@ class _DistanceConstraintChainState extends State<DistanceConstraintChain> {
       path: DistanceConstraintChain.path,
       onHover: _onHover,
       actions: [
+        Slider(
+          value: _segmentCount.toDouble(),
+          min: 10,
+          max: 100,
+          onChanged: (value) {
+            _segmentCount = value.round();
+            _updateSegments();
+          },
+          divisions: 90,
+        ),
+        SizedBox(width: GlobalUi.mediumDivider),
         Switch(
-          value: showFish,
-          onChanged: (value) => setState(() => showFish = value),
+          value: _showFish,
+          onChanged: (value) => setState(() => _showFish = value),
         ),
         SizedBox(width: GlobalUi.padding),
       ],
       painter:
-          showFish
+          _showFish
               ? _FishPainter(_segments, colorScheme)
               : _CirclesPainter(_segments, colorScheme.onSurface),
     );

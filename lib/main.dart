@@ -24,7 +24,11 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Procedural Animations',
           themeMode: ThemeMode.system,
-          theme: ThemeData(colorScheme: isLight ? light : dark),
+          theme: ThemeData(
+            colorScheme: isLight ? light : dark,
+            progressIndicatorTheme: ProgressIndicatorThemeData(year2023: false),
+            sliderTheme: SliderThemeData(year2023: false),
+          ),
           home: HomePage(),
           routes: routes,
         );

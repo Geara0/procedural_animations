@@ -41,7 +41,6 @@ class _BasicDistancePageState extends State<BasicDistancePage> {
             anchor: Vector2(x, y),
             distance: _radius,
           );
-          debugPrint(_pointPosition.toString());
         });
       },
       children: [

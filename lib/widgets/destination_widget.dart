@@ -13,6 +13,7 @@ class Destination extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(GlobalUi.smallPadding),
         child: InkWell(
+          borderRadius: BorderRadius.all(Radius.circular(GlobalUi.cardRadius)),
           onTap: () => Navigator.of(context).pushNamed(path),
           child: Center(
             child: Text(

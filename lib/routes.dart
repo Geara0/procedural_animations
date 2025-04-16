@@ -1,6 +1,7 @@
 import 'package:procedural_animations/pages/constraints/basic_distance_page.dart';
 import 'package:procedural_animations/pages/constraints/constraints_page.dart';
 import 'package:procedural_animations/pages/constraints/distance_constraint_chain.dart';
+import 'package:procedural_animations/pages/constraints/fabrik_chain_page.dart';
 import 'package:procedural_animations/pages/home_page.dart';
 
 final routes = {
@@ -8,6 +9,7 @@ final routes = {
   ConstraintsPage.path: (context) => ConstraintsPage(),
   BasicDistancePage.path: (context) => BasicDistancePage(),
   DistanceConstraintChain.path: (context) => DistanceConstraintChain(),
+  FABRIKChainPage.path: (context) => FABRIKChainPage(),
 };
 
 const routeNames = {
@@ -15,9 +17,14 @@ const routeNames = {
   ConstraintsPage.path: 'Constraints',
   BasicDistancePage.path: 'Basic distance',
   DistanceConstraintChain.path: 'Distance constraint chain',
+  FABRIKChainPage.path: 'FABRIK chain',
 };
 
 const routeNesting = {
   HomePage.path: [ConstraintsPage.path],
-  ConstraintsPage.path: [BasicDistancePage.path, DistanceConstraintChain.path],
+  ConstraintsPage.path: [
+    BasicDistancePage.path,
+    DistanceConstraintChain.path,
+    FABRIKChainPage.path,
+  ],
 };

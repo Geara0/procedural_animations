@@ -11,4 +11,6 @@ abstract class GlobalUi {
     mainAxisSpacing: GlobalUi.mediumDivider,
     crossAxisSpacing: GlobalUi.mediumDivider,
   );
+
+  static const cardRadius = 12.0;
 }

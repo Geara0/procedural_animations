@@ -5,6 +5,8 @@ import 'package:vector_math/vector_math.dart';
 class PointDto {
   PointDto({required this.position, required this.radius});
 
+  PointDto.initial({required this.radius}) : position = Vector2.zero();
+
   Vector2 position;
   double radius;
 

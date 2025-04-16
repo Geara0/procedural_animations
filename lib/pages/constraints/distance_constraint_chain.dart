@@ -134,7 +134,7 @@ class _CirclesPainter extends CustomPainter {
           ..style = PaintingStyle.fill;
 
     for (final point in points) {
-      canvas.drawCircle(point.offset, point.radius, paint);
+      canvas.drawCircle(point.offset, point.radius.toDouble(), paint);
       canvas.drawCircle(point.front.offset, 2, frontPaint);
     }
   }

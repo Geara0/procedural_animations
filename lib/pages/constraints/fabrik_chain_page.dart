@@ -19,16 +19,16 @@ class _FABRIKChainPageState extends State<FABRIKChainPage> {
   static const _count = 10;
   static const _distanceConstraint = 20;
 
-  late List<PointDto> points;
-  late Vector2 center;
+  late List<PointDto> _points;
+  late Vector2 _center;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    points = List.generate(_count, (i) {
+    _points = List.generate(_count, (i) {
       final size = MediaQuery.sizeOf(context);
-      center = Vector2(size.width / 2, size.height / 2);
-      return PointDto(position: Vector2(center.x, center.y), radius: 5);
+      _center = Vector2(size.width / 2, size.height / 2);
+      return PointDto(position: Vector2(_center.x, _center.y), radius: 5);
     });
   }
 
@@ -40,10 +40,10 @@ class _FABRIKChainPageState extends State<FABRIKChainPage> {
       path: FABRIKChainPage.path,
       onHover: _onHover,
       children: [
-        for (final point in points)
+        for (final point in _points)
           Positioned(
-            left: point.position.x,
-            top: point.position.y,
+            left: point.position.x - point.radius,
+            top: point.position.y - point.radius,
             child: Container(
               width: point.radius * 2,
               height: point.radius * 2,
@@ -60,21 +60,21 @@ class _FABRIKChainPageState extends State<FABRIKChainPage> {
   void _onHover(PointerHoverEvent event) {
     setState(() {
       // pull towards mouse as usual
-      points[0].position = event.localPosition.vector;
-      for (var i = 1; i < points.length; i++) {
-        points[i].position = constrainDistance(
-          point: points[i].position,
-          anchor: points[i - 1].position,
+      _points[0].position = event.localPosition.vector;
+      for (var i = 1; i < _points.length; i++) {
+        _points[i].position = constrainDistance(
+          point: _points[i].position,
+          anchor: _points[i - 1].position,
           distance: _distanceConstraint,
         );
       }
 
       // reverse pull back to center
-      points.last.position = center;
-      for (var i = points.length - 1; i > 0; i--) {
-        points[i - 1].position = constrainDistance(
-          point: points[i - 1].position,
-          anchor: points[i].position,
+      _points.last.position = _center;
+      for (var i = _points.length - 1; i > 0; i--) {
+        _points[i - 1].position = constrainDistance(
+          point: _points[i - 1].position,
+          anchor: _points[i].position,
           distance: _distanceConstraint,
         );
       }

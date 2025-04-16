@@ -8,7 +8,7 @@ class PointDto {
   PointDto.initial({required this.radius}) : position = Vector2.zero();
 
   Vector2 position;
-  double radius;
+  num radius;
 
   Offset get offset => Offset(position.x, position.y);
 

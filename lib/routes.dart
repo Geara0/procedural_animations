@@ -1,4 +1,5 @@
 import 'package:procedural_animations/pages/constraints/basic_distance_page.dart';
+import 'package:procedural_animations/pages/constraints/collision_constraint_page.dart';
 import 'package:procedural_animations/pages/constraints/constraints_page.dart';
 import 'package:procedural_animations/pages/constraints/distance_constraint_chain.dart';
 import 'package:procedural_animations/pages/constraints/fabrik_chain_page.dart';
@@ -10,6 +11,7 @@ final routes = {
   BasicDistancePage.path: (context) => BasicDistancePage(),
   DistanceConstraintChain.path: (context) => DistanceConstraintChain(),
   FABRIKChainPage.path: (context) => FABRIKChainPage(),
+  CollisionConstraintPage.path: (context) => CollisionConstraintPage(),
 };
 
 const routeNames = {
@@ -18,6 +20,7 @@ const routeNames = {
   BasicDistancePage.path: 'Basic distance',
   DistanceConstraintChain.path: 'Distance constraint chain',
   FABRIKChainPage.path: 'FABRIK chain',
+  CollisionConstraintPage.path: 'Collision constraint',
 };
 
 const routeNesting = {
@@ -26,5 +29,6 @@ const routeNesting = {
     BasicDistancePage.path,
     DistanceConstraintChain.path,
     FABRIKChainPage.path,
+    CollisionConstraintPage.path,
   ],
 };

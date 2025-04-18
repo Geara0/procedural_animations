@@ -4,7 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:procedural_animations/dto/point.dart';
 import 'package:procedural_animations/extensions/offset_extension.dart';
+import 'package:procedural_animations/page_mixins/ticker_state_mixin.dart';
 import 'package:procedural_animations/utils/constraints/constraints_utils.dart';
+import 'package:procedural_animations/utils/verlet.dart';
 import 'package:procedural_animations/widgets/stack_canvas_widget.dart';
 import 'package:vector_math/vector_math.dart';
 
@@ -19,7 +21,8 @@ class CollisionConstraintWithVerletPage extends StatefulWidget {
 }
 
 class _CollisionConstraintWithVerletPageState
-    extends State<CollisionConstraintWithVerletPage> {
+    extends State<CollisionConstraintWithVerletPage>
+    with TickerStateMixin {
   static const _radius = 10.0;
   static const _rowCount = 4;
   static const _colCount = 5;
@@ -29,13 +32,6 @@ class _CollisionConstraintWithVerletPageState
   final _pointer = PointDto.initial(radius: 35);
   late final PointDto _container = PointDto.initial(radius: 100);
   late Vector2 _center;
-
-  @override
-  void initState() {
-    super.initState();
-
-    Timer.periodic(Duration(milliseconds: 20), _tick);
-  }
 
   @override
   void didChangeDependencies() {
@@ -57,7 +53,7 @@ class _CollisionConstraintWithVerletPageState
       }
     }
 
-    _prevPoints = _points.map((e) => PointDto.copy(e)).toList();
+    _prevPoints = _points.map(PointDto.copy).toList();
     _container.position = _center;
   }
 
@@ -75,10 +71,6 @@ class _CollisionConstraintWithVerletPageState
   void _onHover(PointerHoverEvent event) {
     setState(() {
       _pointer.position = event.localPosition.vector;
-
-      // for (var i = 0; i < _points.length; i++) {
-      //   _verlet(_prevPoints[i], _points[i]);
-      // }
 
       _constrainPointer();
       _constrainContainer();
@@ -137,10 +129,11 @@ class _CollisionConstraintWithVerletPageState
     }
   }
 
-  void _tick(Timer timer) {
+  @override
+  void tick(Timer timer) {
     setState(() {
       for (var i = 0; i < _points.length; i++) {
-        _verlet(_prevPoints[i], _points[i]);
+        verlet(_prevPoints[i], _points[i]);
 
         _points[i].position.y += 1;
       }
@@ -152,11 +145,5 @@ class _CollisionConstraintWithVerletPageState
         _constrainContainer();
       }
     });
-  }
-
-  void _verlet(PointDto prev, PointDto curr) {
-    final tmp = Vector2.copy(curr.position);
-    curr.position += curr.position - prev.position;
-    prev.position = tmp;
   }
 }

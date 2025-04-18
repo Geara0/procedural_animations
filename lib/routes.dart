@@ -4,6 +4,7 @@ import 'package:procedural_animations/pages/constraints/collision_constraint_wit
 import 'package:procedural_animations/pages/constraints/constraints_page.dart';
 import 'package:procedural_animations/pages/constraints/distance_constraint_chain.dart';
 import 'package:procedural_animations/pages/constraints/fabrik_chain_page.dart';
+import 'package:procedural_animations/pages/constraints/verlet_rope_page.dart';
 import 'package:procedural_animations/pages/home_page.dart';
 
 final routes = {
@@ -15,6 +16,7 @@ final routes = {
   CollisionConstraintPage.path: (context) => CollisionConstraintPage(),
   CollisionConstraintWithVerletPage.path:
       (context) => CollisionConstraintWithVerletPage(),
+  VerletRopePage.path: (context) => VerletRopePage(),
 };
 
 const routeNames = {
@@ -25,6 +27,7 @@ const routeNames = {
   FABRIKChainPage.path: 'FABRIK chain',
   CollisionConstraintPage.path: 'Collision constraint',
   CollisionConstraintWithVerletPage.path: 'Collision constraint with Verlet',
+  VerletRopePage.path: 'Verlet rope (bouncy mess)',
 };
 
 const routeNesting = {
@@ -35,5 +38,6 @@ const routeNesting = {
     FABRIKChainPage.path,
     CollisionConstraintPage.path,
     CollisionConstraintWithVerletPage.path,
+    VerletRopePage.path,
   ],
 };

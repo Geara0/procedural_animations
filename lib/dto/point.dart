@@ -7,6 +7,13 @@ class PointDto {
 
   PointDto.initial({required this.radius}) : position = Vector2.zero();
 
+  factory PointDto.copy(PointDto point) {
+    return PointDto(
+      position: Vector2.copy(point.position),
+      radius: point.radius,
+    );
+  }
+
   Vector2 position;
   num radius;
 

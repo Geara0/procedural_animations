@@ -74,9 +74,6 @@ class _CollisionConstraintPageState extends State<CollisionConstraintPage> {
       _pointer.position = event.localPosition.vector;
 
       // push balls from mouse
-      // for (var i = 0; i < _points.length; i++) {
-      //   final
-      // }
       for (final point in _points) {
         if ((_pointer.position - point.position).length <
             _pointer.radius + point.radius) {
@@ -88,6 +85,7 @@ class _CollisionConstraintPageState extends State<CollisionConstraintPage> {
         }
       }
 
+      // push balls from other balls
       for (var i = 0; i < _points.length; i++) {
         final a = _points[i];
         for (var j = i; j < _points.length; j++) {
